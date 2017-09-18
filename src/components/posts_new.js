@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { createPost } from "../actions";
-import './posts_new.css';
 
 class PostsNew extends Component {
-	// renderTitleField method is used to display the UI in the field
-	// we have to pass all the event handlers to the input
+	// renderField() is used to display UI in the field
+	// field.input contains all the event handlers
+	// field.meta contains meta info related to the field, such as in which state the field is in
 	renderField = (field) => {
 		// apply 'has-danger' class if the form field is in touched state and there is an error reported
 		const inputClassName = `form-group ${field.meta.touched && field.meta.error ? 'has-danger' : ''}`
@@ -38,12 +38,16 @@ class PostsNew extends Component {
 
 	render() {
 		// handleSubmit is passed from redux form
-		const { handleSubmit } = this.props;
+		const handleSubmit = this.props.handleSubmit;
 
 		return (
-			// when the form is submitted, it will first run the handleSubmit() to validate form fileds
+			// when the form is submitted, it will first run the handleSubmit() to validate form fields
 			// if all validations go well, this.onSubmit() will be called
 			<form onSubmit={handleSubmit(this.onSubmit)}>
+				<div className="post-nav">
+					<button type="submit" className="btn btn-primary">Submit</button>
+					<Link to="/" className="btn btn-danger float-right">Cancel</Link>
+				</div>
 				<Field
 					label="Title"
 					name="title"
@@ -59,8 +63,6 @@ class PostsNew extends Component {
 					name="content"
 					component={this.renderField}
 				/>
-				<button type="submit" className="btn btn-primary">Submit</button>
-				<Link to="/" className="btn btn-danger cancel">Cancel</Link>
 			</form>
 		);
 	}

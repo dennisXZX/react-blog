@@ -7,3 +7,7 @@ body {
 #root {
     padding: 25px;
 }
+
+.post-nav {
+    margin-bottom: 20px;
+}

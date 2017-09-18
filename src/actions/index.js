@@ -8,15 +8,18 @@ export const DELETE_POST = 'delete_post';
 const ROOT_URL = 'http://reduxblog.herokuapp.com/api/';
 const API_KEY = '?key=DENNISBOYS123';
 
+// fetch all the posts
 export function fetchPosts() {
 	const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
 
+	// the request promise will be pre-processed by redux-promise
 	return {
 		type: FETCH_POSTS,
 		payload: request
 	};
 }
 
+// fetch a single post by id
 export function fetchPost(id) {
 	const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
 
@@ -26,6 +29,7 @@ export function fetchPost(id) {
 	}
 }
 
+// create a new post
 export function createPost(values, callback) {
 	// when the post request is completed, call the callback function
 	const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
@@ -37,6 +41,7 @@ export function createPost(values, callback) {
 	};
 }
 
+// delete a post
 export function deletePost(id, callback) {
 	const request = axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`)
 		.then(() => callback());
